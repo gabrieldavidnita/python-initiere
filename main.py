@@ -1,10 +1,15 @@
 
-from functii import(
-   ultima_cifra,
-    numar_cifre
+from  cifre import (
+   test_suma_cifre
 )
 
-
+########### "Ana "+ "are mere " =>"Ana are mere"   "ana" +str(3)=>"ana3" 
 
 if __name__=="__main__":
-   print(numar_cifra(1234))
+
+   test_suma_cifre()
+#     s="ana are m,er"
+#     t=[1,2,3,4]
+# #   for c in s :
+# #       print(c)
+#     print(sum(t))
