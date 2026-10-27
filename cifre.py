@@ -51,10 +51,24 @@ def ogl_numar(n:int)->int:
 def palindrom(n:int)->bool:
     return n==ogl_numar(n)
 
+def palindrom_py(n:int)->bool:
+    return str(n)==str(n)[::-1]
+
+
+def cifra_maxima_py(n:int)->tuple[int,int]:
+    s=str(n)
+    m=max(s)
+    return [int(m),s.count(m)]
+
 def test_palindrom()->None:
     print("n= ")
     n=int(input())
     if(palindrom(n)):
+        print("DA")
+    else:
+        print("NU")
+
+    if(palindrom_py(n)):
         print("DA")
     else:
         print("NU")

@@ -2,7 +2,8 @@
 from  cifre import (
    test_suma_cifre,
    test_numar_cifre,
-   test_palindrom
+   test_palindrom,
+   cifra_maxima_py
    
 )
 
@@ -10,4 +11,8 @@ from  cifre import (
 
 if __name__=="__main__":
 
-   test_palindrom()
+  x,y=cifra_maxima_py(12343214)
+
+  print(x)
+
+  print(y)
