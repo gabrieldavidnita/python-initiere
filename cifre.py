@@ -1,191 +1,90 @@
+# suma cifrelor  unui numar
+from math import isqrt
+
 
 def suma_cifrelor(n:int)->int:
-    s=0 
-    while(n!=0):
-        uc=n%10
-        s=s+uc
-        n=n//10
-    return s
-#### 1234 -> "1234"  = "4" => 4 
+    return sum(int(c) for c in str(n))
 
-def suma_cifrelor_py(n:int)->int:
-   return sum( int(c) for c in str(n))
+def suma_cifrelor2(n:int)->int:
+    suma=0
+    for cifra in str(abs(n)) :
+        suma+=int(cifra)
+    return suma
 
+def test_suma_cifrelor()->None:
+        print("n=")
+        n=int(input())
+        print(suma_cifrelor(n))
 
-def test_suma_cifre() -> None:
-    print("n=")
-    n = int(input())
-    print("Suma cifrelor lui "+str(n))
-    print(suma_cifrelor(n))
-    print(suma_cifrelor_py(n))
-
-
-
-  
-def numar_cifre(n:int)->int:
-    nr=0
-    while(n!=0):
-        nr+=1
-        n=n//10
-    return nr  
-### 84579->"84579" =>5
-def nr_cifrelor_py(n:int)->int:
-    return len(str (n))
-
-def test_numar_cifre() -> None:
-    print("n=")
-    n=int(input())
-    print("Numarul cifrelor lui "+str(n))
-    print(numar_cifre(n))
-    print(nr_cifrelor_py(n))
-
-def ogl_numar(n:int)->int:
-    ogl=0
-    while (n!=0):
-        uc=n%10
-        ogl=ogl*10+uc
-        n=n//10
-    return ogl
-
-
-def palindrom(n:int)->bool:
-    return n==ogl_numar(n)
-
-def palindrom_py(n:int)->bool:
-    return str(n)==str(n)[::-1]
-
-
-def cifra_maxima_py(n:int)->tuple[int,int]:
-    s=str(n)
-    m=max(s)
-    return [int(m),s.count(m)]
+def numar_palindrom(n:int)->bool:
+     return str(n)==str(n)[::-1]
 
 def test_palindrom()->None:
-    print("n= ")
-    n=int(input())
-    if(palindrom(n)):
-        print("DA")
-    else:
-        print("NU")
+    n=8338
+    print(numar_palindrom(n))
 
-    if(palindrom_py(n)):
-        print("DA")
-    else:
-        print("NU")
+def cifra_maxima(n:int)->tuple[int,int]:
+     s=str(n)
+     m=max(s)
+     return  int(m), s.count(m)
 
-def cifre_pare(n:int)->int:
-    nr=0
-    p=1
+def test_cifra_maxima()->None:
+     n=19697
+     maxim ,aparitii= cifra_maxima(n)
+     print(maxim)
+     print(aparitii)
 
-    if n==0:
-        return 0
-
-    while(n!=0):
-        uc=n%10
-        if uc%2==0:
-            nr=uc*p+nr
-            p=p*10
-        n=n//10
-
-    if p==1:
-        return -1
-    return nr
-
-def cifre_pare_py(n:int)->int:
-    nr=0
-    gasit=False
-
-    for c in str(n):
-        uc=int(c)
-        if uc%2==0:
-            nr=nr*10+uc
-            gasit=True
-
-    if gasit:
-        return nr
-    return -1
-
-def test_cifre_pare()->None:
-    print("n=")
-    n=int(input())
-    print(cifre_pare(n))
-    print(cifre_pare_py(n))
-
-
-def sterge_cifra(n:int,c:int)->int:
-    nr=0
-    p=1
-    if n==0:
-        if c==0:
-            return -1
-        return 0
-    while(n!=0):
-        uc=n%10
-        if uc!=c:
-            nr=uc*p+nr
-            p=p*10
-        n=n//10
-    if p==1:
-        return -1
-    return nr
-
-def sterge_cifra_py(n:int,c:int)->int:
-    nr=0
-    gasit=False
-
-    for cifra in str(n):
-        uc=int(cifra)
-        if uc!=c:
-            nr=nr*10+uc
-            gasit=True
-
-    if gasit:
-        return nr
-    return -1
-
-def test_sterge_cifra()->None:
-    print("n=")
-    n=int(input())
-    print("c=")
-    c=int(input())
-    print(sterge_cifra(n,c))
-    print(sterge_cifra_py(n,c))
-
-
-    def ogl_numar(n:int)->int:
-     ogl=0
-
-    while(n!=0):
-        uc=n%10
-        ogl=ogl*10+uc
-        n=n//10
-
-    return ogl
 
 def este_prim(n:int)->bool:
-    if n<2:
-        return False
+     if(n<2):
+          return False
+     divizori_posibili=range(2,isqrt(n)+1)  ###[ 2,3,4,5]
+     nu_se_divide=[n%d!=0 for d in divizori_posibili] ##### [true,true,true,true]
 
-    d=2
-    while(d*d<=n):
-        if n%d==0:
-            return False
-        d=d+1
+     return all(nu_se_divide)
 
-    return True
+def test_prim()->None:
+     n=12
+     print(este_prim(n))
 
-def este_prim_py(n:int)->bool:
-    return este_prim(n)
 
-def prim_si_oglindit(n:int)->bool:
-    return este_prim(n) and este_prim(ogl_numar(n))
+########   un numar este  perfect daca este egal cu suma divizorilor lui , fara el insusi
+def numar_perfect(n:int)->int:
+       divizori=[d for d in range(1,n) if n%d==0]
+       suma_divizorilor=sum(divizori)
+       return suma_divizorilor == n
 
-def prim_si_oglindit_py(n:int)->bool:
-    ogl=int(str(n)[::-1])
-    return este_prim_py(n) and este_prim_py(ogl)
+def test_perfect()->None:
+     n=496
+     print(numar_perfect(n))
 
-def test_prim_si_oglindit()->None:
-    print("n=")
-    n=int(input())
-    print(prim_si_oglindit(n))
-    print(prim_si_oglindit_py(n))
+def cifra_de_control(n:int)->int:
+     while sum>10:
+        sum=suma_cifrelor(n)
+
+def test_control(n:int)->None:
+     n=13455
+     print(cifra_de_control(n))
+
+
+#####  c   cifra  cifra%2==1  rezultat
+##### "1"    1       da         "11"
+##### "2"    2       nu         "112"  
+##### "4"    4       nu         "1124"
+##### "5"    5       da         "112455"
+##### "6"    6       nu         "1124556"
+def dubleaza_impare(n:int)->int:
+     rezultat=""
+     for c in str(n):
+          cifra=int(c)
+          if cifra%2==1:
+               rezultat+=c*2
+          else:
+               rezultat+=c
+     return rezultat
+
+def test_dublare()->None:
+     n=12456
+     print(dubleaza_impare(n))
+
+
